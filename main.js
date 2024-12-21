@@ -1,6 +1,9 @@
 const express = require('express')
 const mysql = require('mysql')
 const app = express()
+const cors = require("cors")
+
+app.use(cors())
 
 const database = mysql.createConnection({
     host: "localhost",
@@ -16,7 +19,8 @@ database.connect((err) => {
     console.log("Database connected");
 });
 
-app.get('/', (req, res) => {
+// AMBIL SEMUA DATA USER
+app.get('/api/v1/users', (req, res) => {
     database.query("SELECT * FROM users", (err, rows) => {
         if (err) {
             throw err;
